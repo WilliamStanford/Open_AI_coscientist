@@ -75,7 +75,7 @@ class AICoscientist:
             
             for ind, hypothesis in enumerate(deps.context_memory.hypotheses):
                 print(f'Hypothesis {ind}: {hypothesis}')
-                print('---------------------------------------------')
+                print('')
             
             # Review all hypotheses
             for hypothesis in deps.context_memory.hypotheses:
