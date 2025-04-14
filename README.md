@@ -1,7 +1,3 @@
-"""
-README for the AI-Coscientist implementation.
-"""
-
 # Open-AI-Coscientist Implementation
 
 This project implements a multi-agent system that mimics the approach described in the paper "Towards an AI co-scientist" using Pydantic's AI agent framework.
