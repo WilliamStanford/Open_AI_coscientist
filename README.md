@@ -48,7 +48,7 @@ export GEMINI_API_KEY=your-api-key
 
 ```python
 import asyncio
-from ai_coscientist import run_ai_coscientist
+from open_ai_coscientist import run_ai_coscientist
 
 async def main():
     research_goal = "Propose a novel hypothesis about the role of mitochondrial dysfunction in neurodegenerative diseases."
@@ -62,7 +62,7 @@ if __name__ == "__main__":
 ### As a Command-Line Tool
 
 ```bash
-ai-coscientist "Propose a novel hypothesis about the role of mitochondrial dysfunction in neurodegenerative diseases."
+open_ai_coscientist "Propose a novel hypothesis about the role of mitochondrial dysfunction in neurodegenerative diseases."
 ```
 
 ## Testing
