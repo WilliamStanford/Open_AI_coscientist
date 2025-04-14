@@ -102,3 +102,4 @@ class GenerationAgent:
         
         # In a real implementation, parse the result to extract the hypothesis
         return result.data
+
