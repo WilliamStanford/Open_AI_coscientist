@@ -17,7 +17,7 @@ class MetaReviewAgent:
     3. Generating research overviews
     """
     
-    def __init__(self, model_name: str = "gemini-2.0-flash"):
+    def __init__(self, model_name: str = "google-gla:gemini-2.0-flash"):
         """Initialize the Meta-review agent."""
         self.agent = Agent(
             model_name,

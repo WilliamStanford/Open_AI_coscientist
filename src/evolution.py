@@ -22,7 +22,7 @@ class EvolutionAgent:
     6. Out-of-box thinking
     """
     
-    def __init__(self, model_name: str = "gemini-2.0-flash"):
+    def __init__(self, model_name: str = "google-gla:gemini-2.0-flash"):
         """Initialize the Evolution agent."""
         self.agent = Agent(
             model_name,

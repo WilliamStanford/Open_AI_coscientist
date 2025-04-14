@@ -21,7 +21,7 @@ class AICoscientist:
     for running the system with a given research goal.
     """
     
-    def __init__(self, model_name: str = "openai:gpt-4o"):
+    def __init__(self, model_name: str = "google-gla:gemini-2.0-flash"):
         """Initialize the AI-Coscientist system."""
         self.model_name = model_name
         self.supervisor = SupervisorAgent(model_name)
@@ -70,25 +70,41 @@ class AICoscientist:
             # Generate hypotheses
             for _ in range(hypotheses_per_iteration):
                 await self.generation.generate_hypothesis(deps)
+
+            print('------------HYPOTHESES GENERATED------------')
+            
+            for ind, hypothesis in enumerate(deps.context_memory.hypotheses):
+                print(f'Hypothesis {ind}: {hypothesis}')
+                print('---------------------------------------------')
             
             # Review all hypotheses
             for hypothesis in deps.context_memory.hypotheses:
                 if not any(r.get("type") == "initial" for r in deps.context_memory.reviews.get(hypothesis["id"], [])):
                     await self.reflection.review_hypothesis(deps, hypothesis["id"])
             
+            print('------------HYPOTHESES REVIEWED------------')
+
             # Run tournament
             await self.ranking.run_tournament(deps, tournament_matches_per_iteration)
             
+            print('------------TOURNAMENT COMPLETED------------')
+
             # Evolve top hypotheses
             top_hypotheses = deps.context_memory.get_top_hypotheses(3)
             for hypothesis in top_hypotheses:
                 await self.evolution.evolve_hypothesis(deps, hypothesis["id"], "enhance")
             
+            print('------------HYPOTHESES EVOLVED------------')
+
             # Build proximity graph
             await self.proximity.build_graph(deps)
             
+            print('------------PROXIMITY GRAPH BUILT------------')
+
             # Generate meta-review
             await self.meta_review.generate_meta_review_critique(deps)
+
+            print('------------META REVIEW COMPLETE------------')
         
         # Generate final research overview
         overview = await self.meta_review.generate_overview(deps)
@@ -97,7 +113,7 @@ class AICoscientist:
 
 async def run_ai_coscientist(
     research_goal: str,
-    model_name: str = "openai:gpt-4o",
+    model_name: str = "google-gla:gemini-2.0-flash",
     num_iterations: int = 3
 ) -> Dict[str, Any]:
     """
@@ -120,7 +136,7 @@ def main():
     
     parser = argparse.ArgumentParser(description="Run the AI-Coscientist system")
     parser.add_argument("research_goal", help="The research goal to process")
-    parser.add_argument("--model", default="openai:gpt-4o", help="The model to use for all agents")
+    parser.add_argument("--model", default="google-gla:gemini-2.0-flash", help="The model to use for all agents")
     parser.add_argument("--iterations", type=int, default=3, help="The number of iterations to run")
     
     args = parser.parse_args()
